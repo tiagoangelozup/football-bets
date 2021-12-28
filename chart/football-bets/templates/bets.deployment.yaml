@@ -1,0 +1,36 @@
+{{- $image := .Values.bets.image -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bets
+  labels:
+    app: bets
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: bets
+      labels:
+        app: bets
+    spec:
+      containers:
+        - name: bets
+          image: {{ (printf "%s/bets:%s" $image.repository $image.tag) }}
+          imagePullPolicy: {{ $image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: bets
+          ports:
+            - containerPort: 9090
+          livenessProbe:
+            httpGet:
+              port: 9090
+              httpHeaders:
+                - name: X-Health-Check
+                  value: '1'
+            initialDelaySeconds: 1
+            periodSeconds: 10
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: bets

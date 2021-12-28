@@ -1,0 +1,36 @@
+{{- $image := .Values.teams.image -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: teams
+  labels:
+    app: teams
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: teams
+    spec:
+      containers:
+        - name: teams
+          image: {{ (printf "%s/teams:%s" $image.repository $image.tag) }}
+          imagePullPolicy: {{ $image.pullPolicy }}
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: 9000
+            initialDelaySeconds: 1
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 9000
+            initialDelaySeconds: 1
+            periodSeconds: 10
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: teams

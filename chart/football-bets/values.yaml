@@ -1,0 +1,27 @@
+bets:
+  replicaCount: 1
+  image:
+    repository: kurtis
+    pullPolicy: IfNotPresent
+    tag: "v1"
+
+championships:
+  replicaCount: 1
+  image:
+    repository: kurtis
+    pullPolicy: IfNotPresent
+    tag: "v1"
+
+matches:
+  replicaCount: 1
+  image:
+    repository: kurtis
+    pullPolicy: IfNotPresent
+    tag: "v1"
+
+teams:
+  replicaCount: 1
+  image:
+    repository: kurtis
+    pullPolicy: IfNotPresent
+    tag: "v1"
