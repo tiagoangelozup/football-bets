@@ -1,5 +1,6 @@
 bets:
   replicaCount: 1
+  annotations: { }
   image:
     repository: kurtis
     pullPolicy: IfNotPresent
@@ -7,6 +8,7 @@ bets:
 
 championships:
   replicaCount: 1
+  annotations: { }
   image:
     repository: kurtis
     pullPolicy: IfNotPresent
@@ -14,6 +16,7 @@ championships:
 
 matches:
   replicaCount: 1
+  annotations: { }
   image:
     repository: kurtis
     pullPolicy: IfNotPresent
@@ -21,6 +24,7 @@ matches:
 
 teams:
   replicaCount: 1
+  annotations: { }
   image:
     repository: kurtis
     pullPolicy: IfNotPresent

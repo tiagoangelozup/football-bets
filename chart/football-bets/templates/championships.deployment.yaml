@@ -1,4 +1,5 @@
 {{- $image := .Values.championships.image -}}
+{{- $annotations := .Values.championships.annotations -}}
 {{- $replicas := .Values.championships.replicaCount -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -13,6 +14,12 @@ spec:
       name: championships
       labels:
         app: championships
+    {{- if $annotations }}
+      annotations:
+      {{- range $key, $value := $annotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
     spec:
       containers:
         - name: championships

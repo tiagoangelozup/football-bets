@@ -1,4 +1,5 @@
 {{- $image := .Values.bets.image -}}
+{{- $annotations := .Values.bets.annotations -}}
 {{- $replicas := .Values.bets.replicaCount -}}
 apiVersion: apps/v1
 kind: Deployment
@@ -13,6 +14,12 @@ spec:
       name: bets
       labels:
         app: bets
+    {{- if $annotations }}
+      annotations:
+      {{- range $key, $value := $annotations }}
+        {{ $key }}: {{ $value | quote }}
+      {{- end }}
+    {{- end }}
     spec:
       containers:
         - name: bets
